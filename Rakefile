@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "clickatell"
+    gem.name = "reddavis-clickatell"
     gem.summary = %Q{Wrapper for clickatell.com}
     gem.description = %Q{Wrapper for clickatell.com}
     gem.email = "reddavis@gmail.com"
