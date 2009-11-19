@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/clickatell.rb",
      "lib/clickatell/exceptions.rb",
      "lib/clickatell/text.rb",
+     "reddavis-clickatell.gemspec",
      "spec/clickatell_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
