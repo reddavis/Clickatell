@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "clickatell.gemspec",
      "lib/clickatell.rb",
      "lib/clickatell/exceptions.rb",
      "lib/clickatell/text.rb",
