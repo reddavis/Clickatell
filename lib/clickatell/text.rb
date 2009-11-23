@@ -46,7 +46,7 @@ module Clickatell
       when 302
         raise MaxAllowedCredit.new(response.body)
       else
-        raise UnknownError.new(response.body)
+        raise UnknownError.new("#{response.code} - #{response.body}")
       end
     end
   end
