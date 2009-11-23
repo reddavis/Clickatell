@@ -1,3 +1,5 @@
+require 'uri'
+
 module Clickatell
   
   class Text
