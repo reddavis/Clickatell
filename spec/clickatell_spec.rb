@@ -4,13 +4,12 @@ describe "Clickatell" do
   
   describe "Sending Texts" do
     before do
-      response = Typhoeus::Response.new(:code => 200)
-      Typhoeus::Request.stub!(:get).and_return(response)
+      stub_rest_client(200)
       @a = start_clickatell
     end
   
     it "should send text" do
-      Typhoeus::Request.should_receive(:get)
+      RestClient.should_receive(:get)
       @a.send(444, 'sometext')
     end
     
@@ -21,10 +20,9 @@ describe "Clickatell" do
   
   describe "Error Handling" do
     
-    describe "Authentication Fail" do
+   describe "Authentication Fail" do
       before do
-        response = build_response(001)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(001)
         @a = start_clickatell
       end
       
@@ -37,8 +35,7 @@ describe "Clickatell" do
     
     describe "Unknown Username or Password" do
       before do
-        response = build_response(002)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(002)
         @a = start_clickatell
       end
       
@@ -51,8 +48,7 @@ describe "Clickatell" do
     
     describe "Account Frozen" do
       before do
-        response = build_response(004)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(004)
         @a = start_clickatell
       end
       
@@ -65,8 +61,7 @@ describe "Clickatell" do
     
     describe "IP Lockdown Violation" do
       before do
-        response = build_response(007)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(007)
         @a = start_clickatell
       end
       
@@ -79,8 +74,7 @@ describe "Clickatell" do
     
     describe "Invalid Number" do
       before do
-        response = build_response(106)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(106)
         @a = start_clickatell
       end
       
@@ -93,8 +87,7 @@ describe "Clickatell" do
     
     describe "Empty Message" do
       before do
-        response = build_response(107)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(107)
         @a = start_clickatell
       end
       
@@ -107,8 +100,7 @@ describe "Clickatell" do
     
     describe "Invalid Or Missing API ID" do
       before do
-        response = build_response(108)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(108)
         @a = start_clickatell
       end
       
@@ -121,8 +113,7 @@ describe "Clickatell" do
     
     describe "Message Too Long" do
       before do
-        response = build_response(113)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(113)
         @a = start_clickatell
       end
       
@@ -135,8 +126,7 @@ describe "Clickatell" do
     
     describe "Number Blocked" do
       before do
-        response = build_response(121)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(121)
         @a = start_clickatell
       end
       
@@ -149,8 +139,7 @@ describe "Clickatell" do
     
     describe "Number Delisted" do
       before do
-        response = build_response(128)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(128)
         @a = start_clickatell
       end
       
@@ -163,8 +152,7 @@ describe "Clickatell" do
     
     describe "No Credit Left" do
       before do
-        response = build_response(301)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(301)
         @a = start_clickatell
       end
       
@@ -177,8 +165,7 @@ describe "Clickatell" do
     
     describe "Max Allowed Credit" do
       before do
-        response = build_response(302)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(302)
         @a = start_clickatell
       end
       
@@ -191,8 +178,7 @@ describe "Clickatell" do
     
     describe "Unknown Error" do
       before do
-        response = build_response(999)
-        Typhoeus::Request.stub!(:get).and_return(response)
+        stub_rest_client(999)
         @a = start_clickatell
       end
       
@@ -211,8 +197,14 @@ describe "Clickatell" do
     Clickatell::Text.new('username', 'password', 'api_id')
   end
   
+  def stub_rest_client(code)
+    response = build_response(code)
+    RestClient.stub!(:get).and_return(response)
+  end
+  
   def build_response(code)
-    Typhoeus::Response.new(:code => code)
+    response = Struct.new(:code, :body)
+    response.new(code, 'body')
   end
   
 end

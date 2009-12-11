@@ -9,7 +9,7 @@ module Clickatell
   
     def send(to, message)
       url = send_url(to, message)
-      response = Typhoeus::Request.get(url)
+      response = RestClient.get(url)
       respond(response)
     end
   
