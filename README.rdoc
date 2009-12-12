@@ -4,7 +4,7 @@ This is a wrapper for http://www.clickatell.com
 
 == Install
 
-  gem sources -a -http://gemcutter.org
+  gem sources -a http://gemcutter.org
   sudo gem install reddavis-clickatell
   
 == How To Use
